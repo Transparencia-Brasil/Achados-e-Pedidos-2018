@@ -1,0 +1,512 @@
+perc1 = paste0(round(cont/tot,2)*100, "%")) %>%
+arrange(-cont) %>%
+slice(1:10)
+t10execfed %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+ggplot(aes(x = reorder(assunto2, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Dez assuntos mais pedidos no Executivo Federal")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .2),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10execest <- emp %>%
+filter(interacao == "Pedido",
+poder == "Executivo",
+esfera == "Estadual") %>%
+group_by(assunto) %>%
+summarise(cont = n()) %>%
+mutate(tot = sum(cont),
+perc = cont/tot,
+perc1 = paste0(round(cont/tot,2)*100, "%")) %>%
+arrange(-cont) %>%
+slice(1:10)
+t10execest_graf <- t10execest %>%
+ggplot(aes(x = reorder(assunto, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Dez assuntos mais pedidos no Executivo Estadual")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .25),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10execest %>%
+ggplot(aes(x = reorder(assunto, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Dez assuntos mais pedidos no Executivo Estadual")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .25),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+medias_exeest <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "exeest")
+medias_exeest <- medias_exeest %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_exeest %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias no Executivo Estadual")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .3),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+medias_leg <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "leg")
+medias_leg <- medias_leg %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+mutate(m = round(as.numeric(m),2)) %>%
+mutate(perc1 = paste0(m*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_leg %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias no Legislativo")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .25),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+ggsave(medias_l
+tema_medias_leg <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tleg")
+tema_medias_leg <- tema_medias_leg %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:3)
+tema_medias_leg %>%
+ggplot(aes(x = reorder(tema, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Áreas temáticas com maiores médias no Legislativo")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .4),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+tema_medias_leg <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tleg")
+tema_medias_leg <- tema_medias_leg %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:3)
+tema_medias_leg %>%
+ggplot(aes(x = reorder(tema, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Áreas temáticas com maiores médias no Legislativo")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .4),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+valid <- atend_leg %>%
+filter(atendimento == "Atendido")
+atend_10_leg <- atend_leg %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados — Legislativo")
+atend_leg <- emp %>%
+filter(interacao == "Pedido",
+poder == "Legislativo",
+atendimento != "Não Classificado") %>%
+group_by(assunto, atendimento) %>%
+summarise(pedidos = n()) %>%
+ungroup() %>%
+group_by(assunto) %>%
+mutate(total_assunto = sum(pedidos)) %>%
+ungroup() %>%
+arrange(desc(total_assunto)) %>%
+mutate(ordem = dense_rank(-total_assunto)) %>%
+filter(ordem <= 10) %>%
+mutate(pedidos_perc = round(pedidos/total_assunto, 4),
+perc_atendido  = ifelse(atendimento == "Atendido", pedidos_perc, 0))
+valid <- atend_leg %>%
+filter(atendimento == "Atendido")
+atend_10_leg <- atend_leg %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados — Legislativo")
+atend_leg %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados — Legislativo")
+medias_legmun <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "legmun")
+medias_legmun <- medias_legmun %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+select(-c(aux0, aux, aux1, aux2)) %>%
+mutate(m = round(as.numeric(m),2)) %>%
+mutate(perc1 = paste0(m*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_legmun %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias no Legislativo Municipal")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .25),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+medias_jud <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "jud")
+medias_jud <- medias_jud %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+select(-c(aux0, aux, aux1, aux2)) %>%
+mutate(m = round(as.numeric(m),2)) %>%
+mutate(perc1 = paste0(m*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_jud %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias no Judiciário")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .4),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+tema_medias_jud %>%
+ggplot(aes(x = reorder(tema, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Áreas temáticas com maiores médias no Judiciário")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .55),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+tema_medias_jud <- tema_medias_jud %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:3)
+tema_medias_jud %>%
+ggplot(aes(x = reorder(tema, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Áreas temáticas com maiores médias no Judiciário")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .55),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+tema_medias_jud <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tjud")
+tema_medias_jud <- tema_medias_jud %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:3)
+tema_medias_jud %>%
+ggplot(aes(x = reorder(tema, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Áreas temáticas com maiores médias no Judiciário")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .55),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+atend_jud <- emp %>%
+filter(interacao == "Pedido",
+poder == "Judiciário",
+atendimento != "Não Classificado") %>%
+group_by(assunto, atendimento) %>%
+summarise(pedidos = n()) %>%
+ungroup() %>%
+group_by(assunto) %>%
+mutate(total_assunto = sum(pedidos)) %>%
+ungroup() %>%
+arrange(desc(total_assunto)) %>%
+mutate(ordem = dense_rank(-total_assunto)) %>%
+filter(ordem <= 10) %>%
+mutate(pedidos_perc = round(pedidos/total_assunto, 4),
+perc_atendido  = ifelse(atendimento == "Atendido", pedidos_perc, 0))
+valid <- atend_jud %>%
+filter(atendimento == "Atendido")
+atend_10_jud <- atend_jud %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados — Judiciário")
+atend_jud %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados — Judiciário")
+medias_tj <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tj")
+medias_tj <- medias_tj %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+select(-c(aux0, aux, aux1, aux2)) %>%
+mutate(m = round(as.numeric(m),2)) %>%
+mutate(perc1 = paste0(m*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_tj %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias nos TJs")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .5),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10stj <- emp %>%
+filter(interacao == "Pedido",
+poder == "Judiciário",
+orgao == "Superior Tribunal de Justiça") %>%
+group_by(assunto) %>%
+summarise(cont = n()) %>%
+mutate(tot = sum(cont),
+perc = cont/tot,
+perc1 = paste0(round(cont/tot,2)*100, "%")) %>%
+arrange(-cont) %>%
+slice(1:10)
+t10stj %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+ggplot(aes(x = reorder(assunto2, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Dez assuntos mais pedidos no STJ")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .6),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10cnj <- emp %>%
+filter(interacao == "Pedido",
+poder == "Judiciário",
+orgao == "Conselho Nacional de Justiça") %>%
+group_by(assunto) %>%
+summarise(cont = n()) %>%
+mutate(tot = sum(cont),
+perc = cont/tot,
+perc1 = paste0(round(cont/tot,2)*100, "%")) %>%
+arrange(-cont) %>%
+slice(1:10)
+t10cnj %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+ggplot(aes(x = reorder(assunto2, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos mais pedidos no CNJ")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .3),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+tema_medias_tc <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "ttc")
+tema_medias_tc <- tema_medias_tc %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:3)
+tema_medias_tc %>%
+ggplot(aes(x = reorder(tema, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Áreas temáticas com maiores médias nos Tribunais de Contas")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .53),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+medias_tc <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tc")
+medias_tc <- medias_tc %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+select(-c(aux0, aux, aux1, aux2)) %>%
+mutate(m = round(as.numeric(m),2)) %>%
+mutate(perc1 = paste0(m*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_tc %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias nos Tribunais de Contas")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .52),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+atend_tc <- emp %>%
+filter(interacao == "Pedido",
+poder == "Tribunais de Contas",
+atendimento != "Não Classificado") %>%
+group_by(assunto, atendimento) %>%
+summarise(pedidos = n()) %>%
+ungroup() %>%
+group_by(assunto) %>%
+mutate(total_assunto = sum(pedidos)) %>%
+ungroup() %>%
+arrange(desc(total_assunto)) %>%
+mutate(ordem = dense_rank(-total_assunto)) %>%
+filter(ordem <= 10) %>%
+mutate(pedidos_perc = round(pedidos/total_assunto, 4),
+perc_atendido  = ifelse(atendimento == "Atendido", pedidos_perc, 0))
+valid <- atend_tc %>%
+filter(atendimento == "Atendido")
+atend_10_tc <- atend_tc %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados —
+Tribunal de Contas")
+atend_tc %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+inner_join(atendimento_ordem, by = "atendimento") %>%
+ggplot(aes(x = reorder(assunto2, perc_atendido), y = pedidos_perc, fill = reorder(atendimento, ordem_atend))) +
+geom_bar(stat = "identity") +
+geom_text(aes(label=ifelse(atendimento=="Não Atendido",
+paste0(sprintf("%.0f", pedidos_perc*100),"%"),"")),
+position = position_stack(vjust = .5)) + coord_flip() +
+tema_tb(negrito = "plain") + scale_y_continuous(labels = scales::percent) + xlab("") + ylab("") +
+scale_fill_manual(values= cores, guide = guide_legend(title = NULL)) +
+ggtitle("Atendimento dos dez assuntos mais solicitados —
+Tribunal de Contas")
+medias_tce <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tce")
+medias_tce <- medias_tce %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_tce %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias nos TCs estaduais")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .6),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+medias_tcm <- read_excel("C:/Users/Renato/Desktop/Colab classificados/relatorio final/RDatas_fixed/RDatas (template com datas arrumadas)/medias.xlsx",
+sheet = "tcm")
+medias_tcm <- medias_tcm %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+mutate(m = as.numeric(m)) %>%
+mutate(perc1 = paste0(round(m, 2)*100, "%")) %>%
+arrange(-m) %>%
+slice(1:10)
+medias_tcm %>%
+ggplot(aes(x = reorder(assunto2, m), y = m)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos com maiores médias nos TCs municipais")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .45),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10mppi <- emp %>%
+filter(interacao == "Pedido",
+orgao == "Ministério Público Estadual do Piauí") %>%
+group_by(assunto) %>%
+summarise(cont = n()) %>%
+mutate(tot = sum(cont),
+perc = cont/tot,
+perc1 = paste0(round(cont/tot,2)*100, "%")) %>%
+arrange(-cont) %>%
+slice(1:10)
+t10mppi_graf <- t10mppi %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+ggplot(aes(x = reorder(assunto2, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos no MP-PI")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .4),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10mppi %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+ggplot(aes(x = reorder(assunto2, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos no MP-PI")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .4),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
+t10mprj <- emp %>%
+filter(interacao == "Pedido",
+orgao == "Ministério Público Estadual do Rio de Janeiro") %>%
+group_by(assunto) %>%
+summarise(cont = n()) %>%
+mutate(tot = sum(cont),
+perc = cont/tot,
+perc1 = paste0(round(cont/tot,2)*100, "%")) %>%
+arrange(-cont) %>%
+slice(1:10)
+t10mprj %>%
+mutate(aux0 = str_count(assunto, "\\S+"),
+aux = word(assunto, 1, 3),
+aux1 = word(assunto, 4, aux0),
+aux2 = paste(aux,  "\n", aux1, sep= " "),
+assunto2 = ifelse(aux0 > 3, aux2, assunto)) %>%
+ggplot(aes(x = reorder(assunto2, perc), y = perc)) + geom_bar(stat="identity", fill = "#ff8000", width = .3) + coord_flip() +
+tema_tb(negrito = "plain") + xlab("") + ylab("") + ggtitle("Assuntos no MP-RJ")  +
+geom_text(aes(label = perc1), hjust = -.5) + scale_y_continuous(limits = c(0, .65),
+breaks = scales::pretty_breaks(n = 5),
+labels = scales::percent)
