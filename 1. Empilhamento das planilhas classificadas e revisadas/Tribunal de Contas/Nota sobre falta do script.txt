@@ -1,0 +1,3 @@
+Infelizmente, perdi o script que gerou a planilha tcs2.xlsx.
+
+A lógica aplicada, porém, é a mesma que está nos scripts dos empilhamentos nos outros poderes.
